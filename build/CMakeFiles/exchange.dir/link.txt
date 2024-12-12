@@ -1,1 +1,0 @@
-/usr/bin/cc CMakeFiles/exchange.dir/src/book/book.c.o CMakeFiles/exchange.dir/src/main.c.o -o exchange 

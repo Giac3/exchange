@@ -1,1 +1,0 @@
-/usr/bin/cc CMakeFiles/test_exchange.dir/tests/e2e.c.o CMakeFiles/test_exchange.dir/tests/main.c.o -o test_exchange 

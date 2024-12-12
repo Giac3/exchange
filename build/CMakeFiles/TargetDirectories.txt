@@ -1,4 +1,0 @@
-/home/giacomo/code/fin/exchange/build/CMakeFiles/exchange.dir
-/home/giacomo/code/fin/exchange/build/CMakeFiles/test_exchange.dir
-/home/giacomo/code/fin/exchange/build/CMakeFiles/edit_cache.dir
-/home/giacomo/code/fin/exchange/build/CMakeFiles/rebuild_cache.dir
