@@ -17,34 +17,46 @@ void run_e2e() {
     int sockfd, n; 
     struct sockaddr_in servaddr; 
       
-    // clear servaddr 
+    
     bzero(&servaddr, sizeof(servaddr)); 
     servaddr.sin_addr.s_addr = inet_addr("127.0.0.1"); 
     servaddr.sin_port = htons(PORT); 
     servaddr.sin_family = AF_INET; 
       
-    // create datagram socket 
+    
     sockfd = socket(AF_INET, SOCK_DGRAM, 0); 
       
-    // connect to server 
+    
     if(connect(sockfd, (struct sockaddr *)&servaddr, sizeof(servaddr)) < 0) { 
-        puts("Error: Connection Failed"); 
+        perror("Error: Connection Failed"); 
         exit(0); 
     } 
   
-    // send datagram 
-    send(sockfd, message, MAXLINE, 0); 
+    
+    int sent = send(sockfd, message, strlen(message), 0); 
+    if (sent == -1) {
+        perror("send failed");
+        close(sockfd);
+        return;
+    }
+    printf("Client sent %d bytes: %s\n", sent, message);
       
-    // waiting for response 
-    n = recv(sockfd, buffer, sizeof(buffer), 0); 
-    buffer[n] = '\0'; // Null-terminate the received data
-    puts(buffer); 
-  
-    // close the descriptor 
+    
+    n = recv(sockfd, buffer, sizeof(buffer) - 1, 0); 
+    if (n == -1) {
+        perror("recv failed");
+        close(sockfd);
+        return;
+    }
+    buffer[n] = '\0';
+    printf("Client received %d bytes: %s\n", n, buffer); 
+      
+    
     close(sockfd);
 }
 
-// Thread function that calls run_e2e()
+
+
 void* client_thread(void* arg) {
     run_e2e();
     return NULL;
